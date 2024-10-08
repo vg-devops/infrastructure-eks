@@ -4,7 +4,7 @@
 
 resource "aws_cloudwatch_log_group" "eks_cw_control_log_group" {
   name              = "/aws/eks/exa_assessment/cluster"
-  retention_in_days = "TBC"
+  retention_in_days = local.retention_in_days
 
   lifecycle {
     ignore_changes = [
