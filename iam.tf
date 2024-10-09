@@ -4,7 +4,7 @@
 
 resource "aws_iam_role" "eks_svc_role" {
   name               = "${var.project}-cluster-role"
-  assume_role_policy = "TBC"
+  assume_role_policy = data.aws_iam_policy_document.eks_assume_role_policy.json
   tags               = local.common_tags
 
   lifecycle {
