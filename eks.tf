@@ -10,6 +10,7 @@ resource "aws_eks_cluster" "control_plane" {
 
   vpc_config {
     subnet_ids = local.all_subnets
+    security_group_ids = [aws_security_group.eks_cluster]
   }
   
 }
