@@ -8,7 +8,7 @@ resource "aws_security_group" "eks_cluster" {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = data.terraform_remote_state.vpc_imports.outputs.vpc_cidr
+    cidr_blocks = [ data.terraform_remote_state.vpc_imports.outputs.vpc_cidr ]
   }
 
   # all outbound traffic
