@@ -2,6 +2,25 @@ provider "aws" {
   region  = var.region
 }
 
+provider "kubernetes" {
+  host                   = aws_eks_cluster.control_plane.endpoint
+  cluster_ca_certificate = base64decode(aws_eks_cluster.control_plane.certificate_authority[0].data)
+  token                  = data.aws_eks_cluster_auth.cluster.token
+}
+
+## as stated at https://registry.terraform.io/providers/hashicorp/helm/latest/docs
+provider "helm" {
+  kubernetes {
+    host                   = aws_eks_cluster.control_plane.endpoint
+    cluster_ca_certificate = base64decode(aws_eks_cluster.control_plane.certificate_authority[0].data)
+    exec {
+      api_version = "client.authentication.k8s.io/v1beta1"
+      args        = ["eks", "get-token", "--cluster-name", aws_eks_cluster.control_plane.id]
+      command     = "aws"
+    }
+  }  
+}
+
 terraform {
   #This is set to a major version, so changes beyond 1.9 cannot be used when untested.
   required_version = "~> v1.9.7"
@@ -20,5 +39,19 @@ terraform {
       source = "hashicorp/aws"
       version = "~> 5.70.0"
     }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "~> 2.32.0"
+    }
+    helm       = {
+      source  = "hashicorp/helm"
+      version = "~> 2.15.0"
+    }
+
+    tls       = {
+      source  = "hashicorp/tls"
+      version = "~> 4.0.6"
+    }
+
   }
 }
