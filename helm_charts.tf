@@ -6,6 +6,7 @@ resource "kubernetes_service_account" "aws_load_balancer_controller" {
       "eks.amazonaws.com/role-arn" = aws_iam_role.aws_load_balancer_controller.arn
     }
   }
+  depends_on = [data.aws_eks_cluster.cluster]
 }
 
 
