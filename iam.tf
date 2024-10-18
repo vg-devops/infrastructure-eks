@@ -69,8 +69,8 @@ resource "aws_iam_role_policy_attachment" "fargate_pod_execution_role_policy" {
   role       = aws_iam_role.fargate_pod_execution_role.name
 }
 
-resource "aws_iam_role_policy_attachment" "fargate_pod_execution_role_policy" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSForFargateServiceRolePolicy"
+resource "aws_iam_role_policy_attachment" "fargate_manage_enis_role_policy" {
+  policy_arn = "arn:aws:iam::aws:policy/aws-service-role/AmazonEKSForFargateServiceRolePolicy"
   role       = aws_iam_role.fargate_pod_execution_role.name
 }
 
