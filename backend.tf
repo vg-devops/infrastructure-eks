@@ -23,7 +23,7 @@ terraform {
 
   backend "s3" {
     bucket = "terraform-states-361769587713" # -{ACCOUNT_ID_PLACEHOLDER}
-    key    = "network/development_environment_eks.tfstate"
+    key    = "eks/development_environment_eks.tfstate"
     region = "eu-west-2"
     
     # role_arn     = "arn:aws:iam::{ACCOUNT_ID_PLACEHOLDER}:role/terraform"
