@@ -19,3 +19,13 @@ resource "aws_eks_fargate_profile" "eks_fargate_general" {
   )
 }
 
+resource "kubernetes_namespace" "fargate_ns" {
+  metadata {
+    name = "fargate-ns"
+    
+    labels = {
+      name = "fargate-ns"
+      env  = "development"
+    }
+  }
+}
